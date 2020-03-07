@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:myreduxlogin/actions/login_actions.dart';
 import 'package:myreduxlogin/model/app_state.dart';
+import 'package:myreduxlogin/model/login_list_data.dart';
 import 'package:myreduxlogin/model/login_model.dart';
 
 
 class LoginView extends StatelessWidget {
+  var userName=TextEditingController();
+  var passWord=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +50,10 @@ class LoginView extends StatelessWidget {
                       color: Colors.grey,
                     
                       child: TextField(
+                        controller: passWord,
                         decoration: InputDecoration(
-                          border: InputBorder.none
+                          border: InputBorder.none,
+                          labelText: 'User Name',
                         ),
                       ),
                     ),
@@ -56,8 +62,10 @@ class LoginView extends StatelessWidget {
                       color: Colors.grey,
                      
                       child: TextField(
+                        controller: passWord,
                         decoration: InputDecoration(
-                          border: InputBorder.none
+                          border: InputBorder.none,
+                          labelText: 'Password'
                         ),
                       ),
                     ),
@@ -68,28 +76,41 @@ class LoginView extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Expanded(child: Container(
-                            color: Colors.red,
+                          height:MediaQuery.of(context).size.height*0.06,
                             child: RaisedButton(
-                              disabledColor: Colors.red,
+
                               child: Text('SignUp',style:TextStyle(color:Colors.yellow,fontSize: 20),),
-                              onPressed: null
+                              onPressed: (){
+
+                              }
                               ),
                           )),
                           SizedBox(width:MediaQuery.of(context).size.width*0.02,),
                           Expanded(
-                            child: StoreConnector<AppState,VoidCallback>(
-                              converter:(store)=>store.dispatch(LoginAction(userName: '',password: '' )) ,
-                              builder:(context,voidCallback)=> Container(
-                              color: Colors.red,
+                              child: StoreConnector<AppState,VoidCallback>(
+                               converter:(store)=>store.dispatch(LoginAction(userName: userName.text,password:passWord.text )) ,
+                               builder: (context,callBack)=>
+                            Container(
+                              height:MediaQuery.of(context).size.height*0.06,
+                              //color: Colors.red,
                               child: RaisedButton(
-                                disabledColor: Colors.red,
+                               // color: Colors.red,
                                 child: Text('SignIn',style: TextStyle(color: Colors.yellow,fontSize: 20),),
                                 onPressed: (){
-                                  voidCallback();
+                                  for(var lg in loginCredential.keys ){
+                                    if(userName.text==lg && passWord.text==loginCredential[lg]){
+
+                                    }
+                                    else{
+
+                                    }
+                                  }
+                                 // callBack();
                                 }
                                 ),
                           ),
-                            )),
+                            )
+                            ),
                         ],
                       ),
                     ),
@@ -109,4 +130,4 @@ class LoginView extends StatelessWidget {
     );
   }
 }
-typedef OnCallBakLoginAction=Function();
+//typedef OnCallBakLoginAction=Function();
