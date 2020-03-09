@@ -13,10 +13,12 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: StoreConnector<AppState,LoginModel>(
-          converter: (store)=>store.state.lgModel,
-          builder: (context,lv){
-            return Container(
+          resizeToAvoidBottomInset: false,
+          // body: StoreConnector<AppState,LoginModel>(
+          // converter: (store)=>store.state.lgModel,
+          // builder: (context,lv){
+          //   return 
+          body:Container(
                margin: EdgeInsets.only(
                        left: MediaQuery.of(context).size.width*0.10,
                        right: MediaQuery.of(context).size.width*0.10
@@ -50,7 +52,7 @@ class LoginView extends StatelessWidget {
                       color: Colors.grey,
                     
                       child: TextField(
-                        controller: passWord,
+                        controller: userName,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           labelText: 'User Name',
@@ -99,9 +101,34 @@ class LoginView extends StatelessWidget {
                                 onPressed: (){
                                   for(var lg in loginCredential.keys ){
                                     if(userName.text==lg && passWord.text==loginCredential[lg]){
+                                      showDialog(context: context,
+                                      builder: (ctx)=>AlertDialog(
+                                        title: Text('Message'),
+                                        content: Text('Success'),
+                                        actions: <Widget>[
+                                          FlatButton(onPressed:()=>Navigator.pop(context) , 
+                                          child:Text('ok')
+                                          ),
+                                        ],
+
+                                      ),
+                                      );
 
                                     }
                                     else{
+                                       showDialog(context: context,
+                                      builder: (ctx)=>AlertDialog(
+                                        title: Text('Error'),
+                                        content: Text('Fail'),
+                                        actions: <Widget>[
+                                          FlatButton(onPressed:()=>Navigator.pop(context) , 
+                                          child:Text('ok')
+                                          ),
+                                        ],
+
+                                      ),
+                                      );
+                                      
 
                                     }
                                   }
@@ -123,11 +150,11 @@ class LoginView extends StatelessWidget {
                   
                 ],
               ),
-            );
-          },
+            ),
+          
         
-      ),
-    );
+      );
+    
   }
 }
 //typedef OnCallBakLoginAction=Function();
