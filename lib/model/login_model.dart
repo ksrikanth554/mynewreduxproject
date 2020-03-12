@@ -1,17 +1,19 @@
 class LoginModel{
   final String username;
   final String password;
-  LoginModel({this.password,this.username});
+ final int statusCode;
+  LoginModel({this.password,this.username,this.statusCode});
   
   factory LoginModel.initial(){
     return LoginModel(
-      username: '',password: ''
+      username: '',password: '',statusCode:null 
     );
   }
-  LoginModel copyWith({String usernam,String password}){
+  LoginModel copyWith({String usernam,String password,int statusCode}){
     return LoginModel(
       username: username??this.username,
-      password:password??this.password
+      password:password??this.password,
+      statusCode:statusCode??this.statusCode
   );
   
 }

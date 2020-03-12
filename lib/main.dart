@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:myreduxlogin/reducers/reducer.dart';
 import 'package:myreduxlogin/views/login_view.dart';
+import 'package:myreduxlogin/views/transactions.dart';
 import 'package:redux/redux.dart';
 
 import 'model/app_state.dart';
@@ -23,6 +24,9 @@ class HomePage extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData.dark(),
           home: LoginView(),
+          routes: {
+            Transactions.routeName:(ctx)=>Transactions(),
+          },
         
       ),
     );
