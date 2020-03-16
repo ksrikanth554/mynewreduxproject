@@ -16,20 +16,15 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   int statusCode;
+  String name;
+  String pass;
   var userName=TextEditingController();
 
   var passWord=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-         //  resizeToAvoidBottomInset: false,
-          // body: StoreConnector<AppState,LoginModel>(
-          // converter: (store)=>store.state.lgModel,
-          // builder: (context,lv){
-          //   return 
-          // body:SingleChildScrollView(
-            
-          //             child:
+         
           body: StoreConnector<AppState,int>(
                   converter: (store){
                    statusCode= store.state.lgModel.statusCode;
@@ -68,31 +63,44 @@ class _LoginViewState extends State<LoginView> {
                               Container(
                           color: Colors.grey,
                         
-                          child: TextField(
-                            controller: userName,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'User Name',
-                            ),
-                            // onChanged: (val){
-                            //   userName.text=val;
+                          child: StoreConnector<AppState,VoidCallback>(
+                              converter: (store)=>()=>store.dispatch(LoginAction(userName: name,password: pass)),
+                              builder:(ctx,callback)=>TextField(
+                              controller: userName,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                labelText: 'User Name',
+                              ),
+                              onChanged: (val){
+                               // userName.text=val;
+                               name=val;
+                               callback();
+                                
 
-                            // },
+                              },
+                            ),
                           ),
                         ),
                         SizedBox(height:MediaQuery.of(context).size.height*0.02 ,),
                         Container(
                           color: Colors.grey,
                          
-                          child: TextField(
-                            controller: passWord,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Password'
+                          child: StoreConnector<AppState,VoidCallback>(
+                            converter: (store)=>()=>store.dispatch(LoginAction(userName:name,password: pass)),
+                             builder:(ctx,callback)=> TextField(
+                              controller: passWord,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                labelText: 'Password'
+                              ),
+                              onChanged: (val){
+                                pass=val;
+                                callback();
+                                // setState(() {
+                                  
+                                // });
+                              },
                             ),
-                            // onChanged: (val){
-                            //   passWord.text=val;
-                            // },
                           ),
                         ),
                          SizedBox(height:MediaQuery.of(context).size.height*0.02,),
